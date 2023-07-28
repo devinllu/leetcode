@@ -2,6 +2,8 @@ class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
         d = {}
 
+        # could alternately do
+        # return not len(set(nums)) == len(nums)
         for val in nums:
             if val in d.keys():
                 return True

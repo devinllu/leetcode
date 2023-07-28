@@ -17,3 +17,5 @@ class Solution:
                 return False
         
         return True
+        # can optionally go
+        # return sorted(s) == sorted(t)
