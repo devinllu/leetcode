@@ -1,32 +1,22 @@
 '''
 desc: given unsorted array of ints, find longest conseq seq in linear time
+
+iterate through array to find values with no left-neighbor in nums (can achieve
+O(1) lookup with python sets) to find starting point, then count length
 '''
-
-
-# O(nlog(n)) solution
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        
-        if len(nums) == 0:
-            return 0
-        nums.sort()
+        st = set(nums)
+        longest = 0
 
-        counter = 1
-        max_count = 0
-        for i in range(len(nums) - 1):
-            crrnt = nums[i]
-            nxt = nums[i + 1]
+        for n in nums:  
+            prev = n - 1
 
-            if crrnt + 1 != nxt and crrnt != nxt:
-                if counter > max_count:
-                    max_count = counter
+            if prev not in st:
+                counter = 0
+                while (n + counter) in st:
+                    counter += 1
                 
-                counter = 1
-
-            elif crrnt + 1 == nxt:
-                counter += 1
-            
-        
-        if max_count < counter:
-            max_count = counter
-        return max_count
+                if counter > longest:
+                    longest = counter
+        return longest
