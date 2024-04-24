@@ -1,15 +1,24 @@
+'''
+desc: Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once
+
+soln: create list of size 26 0's (each representing an alphabet in-order) for each string, and inc the index of
+the list corresponding to each char. this becomes the key to our dict, then return dict.values()
+'''
+
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-
-        d = {}
+        res = defaultdict(list)
+        ret = []
 
         for s in strs:
-            s_sorted = ''.join(sorted(s))
-
-            if s_sorted in d.keys():
-                d[s_sorted].append(s)
-            else:
-                d[s_sorted] = [s]
-
-        return list(d.values())
-                
+            counter = [0] * 26
+            for c in s:
+                counter[ord(c) - ord('a')] += 1
+            
+            res[tuple(counter)].append(s)
+        
+        for val in res.values():
+            ret.append(val)
+        return ret
